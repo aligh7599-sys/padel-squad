@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Squad Tunisie — Organisation des matchs</title>
+<meta name="description" content="Le site du groupe padel : réservez un terrain, planifiez un match, retrouvez les membres.">
+
+<script>
+/* ============================================================
+   ✏️ ZONE DE PERSONNALISATION — MODIFIE ICI SANS RISQUE
+   ------------------------------------------------------------
+   Tout le contenu du site (nom du groupe, lien WhatsApp,
+   clubs, membres, photos) se change dans ce bloc CONFIG.
+   Pour changer une photo : remplace l'adresse entre "" par
+   le lien de ta propre image (clic droit sur une image web
+   → "Copier l'adresse de l'image").
+   ============================================================ */
+const CONFIG = {
+
+  nomGroupe: "Padel Squad",
+  ville: "Tunisie",
+
+  // 🔗 Lien d'invitation de votre groupe WhatsApp
+  // (WhatsApp → votre groupe → nom du groupe → "Inviter via un lien")
+  lienGroupeWhatsApp: "",
+
+  // 🎠 Images du carrousel de la page d'accueil (clubs padel en Tunisie)
+  // Chaque diapo : une image (facultative), un titre et un sous-titre.
+  carrousel: [
+    { img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=1200&q=70",
+      titre: "Padel House — Ariana", soustitre: "3 terrains couverts, éclairage LED" },
+    { img: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1200&q=70",
+      titre: "Padel Connection — Borj Louzir", soustitre: "Ambiance conviviale, tournois réguliers" },
+    { img: "https://images.unsplash.com/photo-1595435742656-5272d0b3fa82?w=1200&q=70",
+      titre: "Padel Marsa — La Marsa", soustitre: "À deux pas de la mer" },
+    { img: "https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=1200&q=70",
+      titre: "Padel Megrine", soustitre: "Réservation en ligne facile" }
+  ],
+
+  // 🏟️ Clubs de padel (affichés sur la page "Planifier un match")
+  // ⚠️ Vérifie les numéros avant de réserver — ils peuvent changer.
+  clubs: [
+    { nom: "Padel House Tunisia", adresse: "676 Sidi Amor, Ariana (banlieue nord de Tunis)",
+      tel: "+216 22 383 383", site: "https://padelhouse.tn",
+      resa: "https://padelhouse.tn/reservation/" },
+    { nom: "Padel Connection", adresse: "Rue Sanhaja, Borj Louzir, Ariana",
+      tel: "+216 29 460 000", site: "https://padeltunisia.com",
+      resa: "https://padeltunisia.com" },
+    { nom: "Padel Megrine", adresse: "Mégrine 2033",
+      tel: "", site: "https://www.padelmegrine.com",
+      resa: "https://ballejaune.com/club/padelmegrine" },
+    { nom: "Padel Marsa", adresse: "La Marsa",
+      tel: "", site: "https://ballejaune.com/club/padelmarsa",
+      resa: "https://ballejaune.com/club/padelmarsa" },
+    { nom: "Sassi Stadium (multisport)", adresse: "Grand Tunis",
+      tel: "", site: "https://sassistadium.com",
+      resa: "https://sassistadium.com" },
+    { nom: "PadUp — réservation en ligne", adresse: "Plateforme n°1 en Tunisie (tous clubs)",
+      tel: "", site: "https://padup.net",
+      resa: "https://padup.net" }
+  ],
+
+  // 👥 Membres de départ du groupe (modifiables aussi depuis le site)
+  // position : "Droite", "Gauche" ou "Polyvalent"
+  // photo : laisse "" pour un avatar automatique, ou mets le lien d'une photo
+  membres: [
+    { nom: "Ali", tel: "+216 ", position: "Polyvalent", photo: "" }
+  ]
+};
+</script>
+
+<style>
+  :root{
+    --lime:#c8f542; --lime-dark:#a8d62e;
+    --navy:#0d1b2e; --navy-2:#12233c;
+    --card:#16294a; --card-2:#1c3258;
+    --blue:#2f6fed; --blue-light:#5b9bff;
+    --text:#eef3fb; --muted:#8fa3c2;
+    --danger:#ff5d6c; --wa:#25d366;
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--navy);color:var(--text);min-height:100vh;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 70% -10%, rgba(47,111,237,.25), transparent),
+      radial-gradient(ellipse 60% 40% at 10% 10%, rgba(200,245,66,.07), transparent);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 16px 80px}
+  a{color:var(--blue-light)}
+
+  /* ---------- Barre de navigation ---------- */
+  nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(13,27,46,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav-in{
+    max-width:960px;margin:0 auto;padding:10px 16px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.05rem;letter-spacing:.5px;margin-right:auto}
+  .logo .ball{
+    width:32px;height:32px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #e8ff8a, var(--lime) 60%, var(--lime-dark));
+    display:grid;place-items:center;font-size:.95rem;
+    box-shadow:0 0 14px rgba(200,245,66,.45);
+  }
+  .logo em{color:var(--lime);font-style:normal}
+  .nav-link{
+    text-decoration:none;color:var(--muted);font-weight:700;font-size:.92rem;
+    padding:8px 14px;border-radius:999px;transition:.15s;
+  }
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{background:var(--lime);color:var(--navy)}
+
+  /* ---------- Pages ---------- */
+  .page{display:none;animation:fadeIn .25s ease}
+  .page.show{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+
+  section{margin-top:32px}
+  .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:1.15rem;font-weight:800}
+  .sec-title .bar{width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--lime),var(--blue))}
+  .sec-sub{color:var(--muted);font-size:.92rem;margin:-8px 0 14px 15px}
+
+  /* ---------- Hero accueil ---------- */
+  .hero{
+    margin-top:22px;background:linear-gradient(135deg, var(--card) 0%, var(--navy-2) 100%);
+    border:1px solid rgba(200,245,66,.18);border-radius:var(--radius);
+    padding:30px 26px;position:relative;overflow:hidden;
+  }
+  .hero::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;border:2px solid rgba(200,245,66,.15);border-radius:50%}
+  .hero h1{font-size:clamp(1.5rem,4.5vw,2.3rem);line-height:1.15;font-weight:800}
+  .hero h1 b{color:var(--lime)}
+  .hero p{color:var(--muted);margin-top:10px;max-width:540px}
+
+  .btn{
+    border:none;border-radius:12px;padding:12px 20px;font-size:1rem;font-weight:700;
+    cursor:pointer;transition:transform .12s, box-shadow .12s;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;text-decoration:none;
+  }
+  .btn:active{transform:scale(.97)}
+  .btn-lime{background:var(--lime);color:var(--navy);box-shadow:0 4px 18px rgba(200,245,66,.3)}
+  .btn-lime:hover{box-shadow:0 6px 24px rgba(200,245,66,.5)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.15)}
+  .btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+  .btn-wa{background:var(--wa);color:#062b16}
+  .btn-sm{padding:8px 13px;font-size:.87rem;border-radius:10px}
+  .btn-danger{background:transparent;color:var(--danger);border:1px solid rgba(255,93,108,.35)}
+  .btn-danger:hover{background:rgba(255,93,108,.1)}
+  .btn-big{font-size:1.1rem;padding:15px 28px}
+
+  /* ---------- Carrousel ---------- */
+  .carousel{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);height:300px;background:var(--card);
+  }
+  @media(max-width:560px){.carousel{height:220px}}
+  .slide{
+    position:absolute;inset:0;opacity:0;transition:opacity .6s ease;
+    display:flex;align-items:flex-end;
+    background:linear-gradient(135deg,#123,#1c3258);
+  }
+  .slide.on{opacity:1}
+  .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .slide .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(8,16,30,.9))}
+  .slide .cap{position:relative;padding:20px 22px;z-index:2}
+  .slide .cap h3{font-size:1.25rem;font-weight:800}
+  .slide .cap p{color:#cdd9ec;font-size:.92rem;margin-top:3px}
+  .slide .court-deco{
+    position:absolute;inset:0;display:grid;place-items:center;font-size:5rem;opacity:.25;
+  }
+  .car-btn{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+    background:rgba(13,27,46,.7);border:1px solid rgba(255,255,255,.2);color:#fff;
+    width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;
+  }
+  .car-btn:hover{background:var(--lime);color:var(--navy)}
+  .car-prev{left:12px}.car-next{right:12px}
+  .car-dots{position:absolute;bottom:12px;right:16px;z-index:3;display:flex;gap:6px}
+  .car-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
+  .car-dots span.on{background:var(--lime)}
+
+  /* ---------- Cartes génériques ---------- */
+  .card{
+    background:var(--card);border:1px solid rgba(255,255,255,.07);
+    border-radius:var(--radius);padding:18px;
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+
+  /* ---------- Accueil : 3 partitions ---------- */
+  .home-actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .mini-members{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .mini-members .face{
+    width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--lime);
+    display:grid;place-items:center;font-weight:800;color:var(--navy);font-size:1rem;flex-shrink:0;
+  }
+  .mini-members .face img{width:100%;height:100%;object-fit:cover}
+
+  /* ---------- Formulaires ---------- */
+  input,select{
+    background:var(--navy-2);border:1px solid rgba(255,255,255,.12);
+    color:var(--text);border-radius:12px;padding:11px 14px;font-size:1rem;outline:none;width:100%;
+  }
+  input:focus,select:focus{border-color:var(--lime)}
+  input[type="date"],input[type="time"]{color-scheme:dark}
+  label{display:block;font-size:.8rem;color:var(--muted);font-weight:700;margin:0 0 5px 3px;text-transform:uppercase;letter-spacing:.6px}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .form-grid .full{grid-column:1/-1}
+  @media(max-width:560px){.form-grid{grid-template-columns:1fr}}
+  .form-actions{margin-top:14px;display:flex;justify-content:flex-end}
+
+  /* ---------- Matchs ---------- */
+  .match{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px;margin-bottom:16px;animation:fadeIn .3s}
+  .match.full-match{border-color:rgba(200,245,66,.4)}
+  .match-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .match-when{display:flex;align-items:center;gap:12px}
+  .date-badge{background:linear-gradient(135deg,var(--lime),var(--lime-dark));color:var(--navy);border-radius:12px;padding:8px 12px;text-align:center;font-weight:800;line-height:1.05;min-width:58px}
+  .date-badge .d{font-size:1.25rem}
+  .date-badge .m{font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
+  .match-when h3{font-size:1rem;text-transform:capitalize}
+  .match-when .meta{color:var(--muted);font-size:.9rem;margin-top:3px}
+  .status{font-size:.75rem;font-weight:800;padding:5px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.7px}
+  .status.open{background:rgba(47,111,237,.18);color:var(--blue-light);border:1px solid rgba(91,155,255,.4)}
+  .status.done{background:rgba(200,245,66,.14);color:var(--lime);border:1px solid rgba(200,245,66,.4)}
+  .status.past{background:rgba(255,255,255,.07);color:var(--muted);border:1px solid rgba(255,255,255,.15)}
+  .court{
+    margin-top:14px;background:linear-gradient(180deg, rgba(47,111,237,.16), rgba(47,111,237,.06));
+    border:2px solid rgba(91,155,255,.35);border-radius:14px;padding:12px;position:relative;
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .court::after{content:"";position:absolute;top:8px;bottom:8px;left:50%;width:2px;background:repeating-linear-gradient(rgba(238,243,251,.5) 0 8px, transparent 8px 16px);transform:translateX(-50%)}
+  .team{display:flex;flex-direction:column;gap:8px}
+  .team-name{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center}
+  .team:first-child .team-name{color:var(--lime)}
+  .team:last-child .team-name{color:var(--blue-light)}
+  .slot{background:var(--navy-2);border:1px dashed rgba(255,255,255,.25);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;min-height:44px;font-weight:600;font-size:.93rem}
+  .slot.filled{border-style:solid;border-color:rgba(255,255,255,.15)}
+  .slot .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:800;color:var(--navy);flex-shrink:0;overflow:hidden}
+  .slot .av img{width:100%;height:100%;object-fit:cover}
+  .slot .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .slot .out{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem}
+  .slot .out:hover{color:var(--danger)}
+  .slot.empty{justify-content:center;color:var(--muted);cursor:pointer;transition:.15s}
+  .slot.empty:hover{border-color:var(--lime);color:var(--lime)}
+  .match-note{margin-top:10px;color:var(--muted);font-size:.9rem;font-style:italic}
+  .match-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .spacer{flex:1}
+  @media(max-width:560px){.court{gap:16px;padding:10px}.match-actions .btn{flex:1}}
+
+  .empty-state{text-align:center;padding:34px 20px;color:var(--muted);background:var(--card);border:1px dashed rgba(255,255,255,.15);border-radius:var(--radius)}
+  .empty-state .big{font-size:2rem;margin-bottom:8px}
+
+  details.history{margin-top:10px}
+  details.history summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 0;list-style:none;display:flex;align-items:center;gap:8px}
+  details.history summary::before{content:"▸";transition:transform .2s}
+  details.history[open] summary::before{transform:rotate(90deg)}
+  details.history .match{opacity:.75}
+
+  /* ---------- Clubs ---------- */
+  .club{display:flex;flex-direction:column;gap:8px}
+  .club h3{font-size:1.02rem;display:flex;align-items:center;gap:8px}
+  .club .adr{color:var(--muted);font-size:.9rem}
+  .club .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .tag-tel{
+    display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+    background:rgba(200,245,66,.12);color:var(--lime);border:1px solid rgba(200,245,66,.35);
+    padding:7px 12px;border-radius:999px;font-weight:700;font-size:.87rem;
+  }
+  .tag-site{
+    display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+    background:rgba(47,111,237,.15);color:var(--blue-light);border:1px solid rgba(91,155,255,.4);
+    padding:7px 12px;border-radius:999px;font-weight:700;font-size:.87rem;
+  }
+
+  /* ---------- Membres ---------- */
+  .members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+  .member{
+    background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);
+    padding:20px 14px;text-align:center;position:relative;
+  }
+  .member .photo{
+    width:86px;height:86px;border-radius:50%;margin:0 auto 12px;overflow:hidden;
+    border:3px solid var(--lime);display:grid;place-items:center;
+    font-size:1.6rem;font-weight:800;color:var(--navy);
+  }
+  .member .photo img{width:100%;height:100%;object-fit:cover}
+  .member h3{font-size:1.05rem}
+  .member .pos{
+    display:inline-block;margin-top:6px;font-size:.78rem;font-weight:800;
+    padding:4px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;
+  }
+  .pos.Droite{background:rgba(200,245,66,.14);color:var(--lime);border:1px solid rgba(200,245,66,.4)}
+  .pos.Gauche{background:rgba(47,111,237,.18);color:var(--blue-light);border:1px solid rgba(91,155,255,.4)}
+  .pos.Polyvalent{background:rgba(255,209,102,.14);color:#ffd166;border:1px solid rgba(255,209,102,.4)}
+  .member .tel{color:var(--muted);font-size:.88rem;margin-top:8px}
+  .member .row{display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+  .member .del{
+    position:absolute;top:10px;right:12px;background:none;border:none;color:var(--muted);
+    cursor:pointer;font-size:1rem;
+  }
+  .member .del:hover{color:var(--danger)}
+
+  /* ---------- Divers ---------- */
+  .info{
+    margin-top:32px;background:rgba(47,111,237,.1);border:1px solid rgba(91,155,255,.3);
+    border-radius:var(--radius);padding:16px 18px;font-size:.9rem;color:var(--muted);line-height:1.55;
+  }
+  .info b{color:var(--text)}
+  footer{margin-top:44px;text-align:center;color:var(--muted);font-size:.85rem}
+  footer .heart{color:var(--lime)}
+
+  /* ---------- Modal ---------- */
+  .modal-bg{position:fixed;inset:0;background:rgba(5,10,20,.75);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--card);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:22px;width:100%;max-width:420px;animation:fadeIn .2s}
+  .modal h3{margin-bottom:6px}
+  .modal p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:var(--card-2);border:1px solid rgba(91,155,255,.3);padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--lime)}
+  .chip .av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:800;color:var(--navy);overflow:hidden}
+  .chip .av img{width:100%;height:100%;object-fit:cover}
+  .modal .close-row{margin-top:16px;text-align:right}
+  .empty-note{color:var(--muted);font-size:.9rem}
+
+  #toast{
+    position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
+    background:var(--lime);color:var(--navy);font-weight:700;padding:12px 22px;border-radius:999px;
+    box-shadow:0 8px 30px rgba(0,0,0,.4);transition:transform .25s;z-index:60;max-width:90vw;text-align:center;
+  }
+  #toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo"><div class="ball">🎾</div><span id="navName">PADEL<em>SQUAD</em></span></div>
+    <a class="nav-link" href="#accueil" data-page="accueil">Accueil</a>
+    <a class="nav-link" href="#planifier" data-page="planifier">Planifier un match</a>
+    <a class="nav-link" href="#membres" data-page="membres">Membres</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ==================== PAGE 1 : ACCUEIL ==================== -->
+  <div class="page" id="page-accueil">
+
+    <!-- Partition 1 : Réservez votre terrain + carrousel -->
+    <div class="hero">
+      <h1>Réservez votre terrain, <b>on s'occupe du reste</b> 🎾</h1>
+      <p>Le site du groupe pour organiser les matchs de padel : choisissez un club en Tunisie, planifiez un créneau et formez les équipes.</p>
+    </div>
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>🏟️ Les clubs de padel en Tunisie</div>
+      <div class="carousel" id="carousel"></div>
+    </section>
+
+    <!-- Partition 2 : bouton planifier -->
+    <section style="text-align:center">
+      <div class="card" style="padding:30px">
+        <h2 style="margin-bottom:8px">Prêt à jouer ?</h2>
+        <p style="color:var(--muted);margin-bottom:18px" id="homeNext">Aucun match prévu pour l'instant.</p>
+        <a class="btn btn-lime btn-big" href="#planifier">📅 Planifier un match</a>
+      </div>
+    </section>
+
+    <!-- Partition 3 : membres du groupe WhatsApp -->
+    <section>
+      <div class="sec-title"><span class="bar"></span>👥 Les membres du groupe WhatsApp</div>
+      <div class="card">
+        <div class="mini-members" id="miniMembers"></div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-ghost btn-sm" href="#membres">Voir tous les membres →</a>
+          <a class="btn btn-wa btn-sm" id="joinWa1" href="#" target="_blank" style="display:none">💬 Rejoindre le groupe WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== PAGE 2 : PLANIFIER ==================== -->
+  <div class="page" id="page-planifier">
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>📅 Planifier un match</div>
+      <div class="card">
+        <div class="form-grid">
+          <div><label for="fDate">Date</label><input id="fDate" type="date"></div>
+          <div><label for="fTime">Heure</label><input id="fTime" type="time" value="19:00"></div>
+          <div class="full"><label for="fClub">Club / terrain</label>
+            <select id="fClub"></select>
+          </div>
+          <div class="full"><label for="fNote">Note (optionnel)</label>
+            <input id="fNote" type="text" maxlength="80" placeholder="Ex : terrain réservé, apportez des balles…"></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-lime" onclick="createMatch()">🎾 Créer le match</button></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>🔥 Prochains matchs</div>
+      <div id="matchList"></div>
+      <details class="history" id="historyBlock" style="display:none">
+        <summary>Matchs passés</summary>
+        <div id="pastList"></div>
+      </details>
+    </section>
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>🏟️ Réserver un terrain — les clubs</div>
+      <p class="sec-sub">Appelez le club ou réservez en ligne, puis créez le match ci-dessus pour prévenir le groupe.</p>
+      <div class="grid2" id="clubList"></div>
+    </section>
+  </div>
+
+  <!-- ==================== PAGE 3 : MEMBRES ==================== -->
+  <div class="page" id="page-membres">
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>👥 Les membres du groupe</div>
+      <p class="sec-sub">Le groupe WhatsApp au complet, avec la position préférée de chacun sur le terrain.</p>
+      <div style="margin-bottom:16px">
+        <a class="btn btn-wa" id="joinWa2" href="#" target="_blank" style="display:none">💬 Rejoindre le groupe WhatsApp</a>
+      </div>
+      <div class="members-grid" id="membersGrid"></div>
+    </section>
+
+    <section>
+      <div class="sec-title"><span class="bar"></span>✍️ S'inscrire au groupe</div>
+      <div class="card">
+        <div class="form-grid">
+          <div><label for="mNom">Prénom / Nom</label><input id="mNom" type="text" maxlength="30" placeholder="Ex : Ali"></div>
+          <div><label for="mTel">Numéro de téléphone</label><input id="mTel" type="tel" maxlength="20" placeholder="+216 12 345 678"></div>
+          <div><label for="mPos">Position sur le terrain</label>
+            <select id="mPos">
+              <option value="Droite">Côté droit</option>
+              <option value="Gauche">Côté gauche</option>
+              <option value="Polyvalent" selected>Polyvalent</option>
+            </select>
+          </div>
+          <div><label for="mPhoto">Photo (lien, optionnel)</label><input id="mPhoto" type="url" placeholder="https://… (sinon avatar auto)"></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-lime" onclick="addMember()">✅ S'inscrire</button></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="info">
+    💡 <b>Bon à savoir :</b> les inscriptions et matchs créés ici sont enregistrés <b>sur cet appareil</b>.
+    Utilisez le bouton <b>« Partager sur WhatsApp »</b> d'un match pour prévenir tout le groupe.
+    Le contenu du site (clubs, photos, membres de départ) se modifie facilement dans le fichier
+    <b>index.html</b>, zone « CONFIG » tout en haut.
+  </div>
+
+  <footer>Fait avec <span class="heart">♥</span> pour la squad padel · Tunisie 🇹🇳 · 100 % gratuit</footer>
+</div>
+
+<!-- Modal inscription à un match -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3>Qui joue sur cette place ?</h3>
+    <p>Choisis un membre du groupe ou ajoute un prénom.</p>
+    <div class="chips" id="modalChips" style="max-height:200px;overflow-y:auto"></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <input id="modalInput" type="text" maxlength="24" placeholder="Autre prénom…" autocomplete="off">
+      <button class="btn btn-lime btn-sm" onclick="joinFromInput()">OK</button>
+    </div>
+    <div class="close-row"><button class="btn btn-ghost btn-sm" onclick="closeModal()">Annuler</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+/* ================= État & stockage ================= */
+const KEY = 'padelsquad-v2';
+let state = load();
+let modalTarget = null;
+let carIndex = 0, carTimer = null;
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){ const s = JSON.parse(raw); if(s && Array.isArray(s.membres) && Array.isArray(s.matches)) return s; }
+  }catch(e){}
+  return { membres: JSON.parse(JSON.stringify(CONFIG.membres)), matches: [] };
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+/* ================= Utilitaires ================= */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escJs(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+const PALETTE = ['#c8f542','#5b9bff','#ffd166','#ff9f6e','#7bdff2','#c39bff','#7ce38b','#ff8fab'];
+function colorOf(name){ let h=0; for(const ch of name) h=(h*31+ch.charCodeAt(0))>>>0; return PALETTE[h%PALETTE.length]; }
+function initials(name){ return name.trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function memberByName(n){ return state.membres.find(m => m.nom.toLowerCase() === String(n).toLowerCase()); }
+function avatarHTML(nom){
+  const m = memberByName(nom);
+  if(m && m.photo) return `<img src="${esc(m.photo)}" alt="" onerror="this.remove()">`;
+  return esc(initials(nom));
+}
+function telToWa(tel){ return String(tel||'').replace(/[^0-9]/g,''); }
+function matchDate(m){ return new Date(m.date + 'T' + (m.time || '00:00')); }
+function isPast(m){ return matchDate(m).getTime() < Date.now() - 2*3600*1000; }
+function fmtLong(m){ return matchDate(m).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); }
+function fmtTime(m){ return (m.time||'').replace(':','h'); }
+
+/* ================= Navigation (3 pages) ================= */
+function router(){
+  const h = (location.hash || '#accueil').replace('#','');
+  const page = ['accueil','planifier','membres'].includes(h) ? h : 'accueil';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('show'));
+  $('page-' + page).classList.add('show');
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+  window.scrollTo({top:0});
+}
+window.addEventListener('hashchange', router);
+
+/* ================= Carrousel ================= */
+function buildCarousel(){
+  const c = $('carousel');
+  const deco = ['🎾','🏆','🔥','💪','⚡'];
+  c.innerHTML = CONFIG.carrousel.map((s,i) => `
+    <div class="slide ${i===0?'on':''}">
+      ${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" onerror="this.remove()">` : ''}
+      <div class="court-deco">${deco[i % deco.length]}</div>
+      <div class="veil"></div>
+      <div class="cap"><h3>${esc(s.titre)}</h3><p>${esc(s.soustitre||'')}</p></div>
+    </div>`).join('')
+    + `<button class="car-btn car-prev" onclick="carGo(-1)">‹</button>
+       <button class="car-btn car-next" onclick="carGo(1)">›</button>
+       <div class="car-dots">${CONFIG.carrousel.map((_,i)=>`<span class="${i===0?'on':''}" onclick="carSet(${i})"></span>`).join('')}</div>`;
+  carAuto();
+}
+function carSet(i){
+  const slides = document.querySelectorAll('#carousel .slide');
+  const dots = document.querySelectorAll('#carousel .car-dots span');
+  if(!slides.length) return;
+  carIndex = (i + slides.length) % slides.length;
+  slides.forEach((s,k)=>s.classList.toggle('on', k===carIndex));
+  dots.forEach((d,k)=>d.classList.toggle('on', k===carIndex));
+  carAuto();
+}
+function carGo(d){ carSet(carIndex + d); }
+function carAuto(){ clearInterval(carTimer); carTimer = setInterval(()=>carSet(carIndex+1), 4500); }
+
+/* ================= Membres ================= */
+function addMember(){
+  const nom = $('mNom').value.trim();
+  const tel = $('mTel').value.trim();
+  if(!nom){ toast('Écris ton prénom 🙂'); $('mNom').focus(); return; }
+  if(!tel){ toast('Ajoute ton numéro de téléphone 📱'); $('mTel').focus(); return; }
+  if(memberByName(nom)){ toast('Ce prénom existe déjà dans le groupe'); return; }
+  state.membres.push({ nom, tel, position: $('mPos').value, photo: $('mPhoto').value.trim() });
+  $('mNom').value=''; $('mTel').value=''; $('mPhoto').value='';
+  save(); render();
+  toast(nom + ' a rejoint la squad ! 🎾');
+}
+function removeMember(nom){
+  if(!confirm('Retirer ' + nom + ' du groupe ?')) return;
+  state.membres = state.membres.filter(m => m.nom !== nom);
+  save(); render();
+}
+function renderMembers(){
+  const g = $('membersGrid');
+  g.innerHTML = state.membres.length ? state.membres.map(m => `
+    <div class="member">
+      <button class="del" title="Retirer" onclick="removeMember('${escJs(m.nom)}')">✕</button>
+      <div class="photo" style="background:${colorOf(m.nom)}">${m.photo ? `<img src="${esc(m.photo)}" alt="${esc(m.nom)}" onerror="this.remove()">` : esc(initials(m.nom))}</div>
+      <h3>${esc(m.nom)}</h3>
+      <span class="pos ${esc(m.position||'Polyvalent')}">${m.position==='Droite'?'Côté droit':m.position==='Gauche'?'Côté gauche':'Polyvalent'}</span>
+      <div class="tel">📱 ${esc(m.tel||'—')}</div>
+      <div class="row">
+        ${m.tel ? `<a class="btn btn-wa btn-sm" target="_blank" href="https://wa.me/${telToWa(m.tel)}">💬 WhatsApp</a>` : ''}
+      </div>
+    </div>`).join('')
+    : '<div class="empty-state"><div class="big">👥</div>Aucun membre pour l\'instant — inscris-toi ci-dessous !</div>';
+
+  $('miniMembers').innerHTML = state.membres.slice(0,10).map(m =>
+    `<div class="face" style="background:${colorOf(m.nom)}" title="${esc(m.nom)}">${m.photo?`<img src="${esc(m.photo)}" alt="" onerror="this.remove()">`:esc(initials(m.nom))}</div>`).join('')
+    + (state.membres.length ? '' : '<span class="empty-note">Personne pour l\'instant — soyez le premier à vous inscrire !</span>');
+}
+
+/* ================= Clubs ================= */
+function renderClubs(){
+  $('clubList').innerHTML = CONFIG.clubs.map(c => `
+    <div class="card club">
+      <h3>🏟️ ${esc(c.nom)}</h3>
+      <div class="adr">📍 ${esc(c.adresse)}</div>
+      <div class="row">
+        ${c.tel ? `<a class="tag-tel" href="tel:${esc(c.tel.replace(/\s/g,''))}">📞 ${esc(c.tel)}</a>` : ''}
+        ${c.resa ? `<a class="tag-site" target="_blank" href="${esc(c.resa)}">🌐 Réserver en ligne</a>` : ''}
+        ${c.site && c.site !== c.resa ? `<a class="tag-site" target="_blank" href="${esc(c.site)}">Site web</a>` : ''}
+      </div>
+    </div>`).join('');
+  $('fClub').innerHTML = CONFIG.clubs.map(c => `<option value="${esc(c.nom)}">${esc(c.nom)}</option>`).join('')
+    + '<option value="Autre lieu">Autre lieu…</option>';
+}
+
+/* ================= Matchs ================= */
+function createMatch(){
+  const date = $('fDate').value, time = $('fTime').value;
+  if(!date){ toast('Choisis une date 📅'); $('fDate').focus(); return; }
+  if(!time){ toast('Choisis une heure ⏰'); $('fTime').focus(); return; }
+  state.matches.push({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    date, time,
+    place: $('fClub').value || 'Lieu à définir',
+    note: $('fNote').value.trim(),
+    slots: [null,null,null,null]
+  });
+  $('fNote').value = '';
+  save(); render();
+  toast('Match créé ! Inscrivez-vous 🔥');
+}
+function deleteMatch(id){
+  if(!confirm('Supprimer ce match ?')) return;
+  state.matches = state.matches.filter(m => m.id !== id);
+  save(); render();
+}
+function leaveSlot(id,i){ const m = state.matches.find(x=>x.id===id); if(!m) return; m.slots[i]=null; save(); render(); }
+function shuffleTeams(id){
+  const m = state.matches.find(x=>x.id===id); if(!m) return;
+  const p = m.slots.filter(Boolean);
+  if(p.length < 2){ toast('Pas assez de joueurs inscrits'); return; }
+  for(let i=p.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [p[i],p[j]]=[p[j],p[i]]; }
+  m.slots = [p[0]||null, p[2]||null, p[1]||null, p[3]||null];
+  save(); render(); toast('Équipes tirées au sort ! 🎲');
+}
+
+/* ---- Modal inscription à un match ---- */
+function openModal(matchId, slotIndex){
+  modalTarget = {matchId, slotIndex};
+  const m = state.matches.find(x=>x.id===matchId);
+  const taken = m ? m.slots.filter(Boolean).map(n=>n.toLowerCase()) : [];
+  const avail = state.membres.filter(p => !taken.includes(p.nom.toLowerCase()));
+  $('modalChips').innerHTML = avail.length
+    ? avail.map(p => `<span class="chip" onclick="joinAs('${escJs(p.nom)}')">
+        <span class="av" style="background:${colorOf(p.nom)}">${p.photo?`<img src="${esc(p.photo)}" onerror="this.remove()">`:esc(initials(p.nom))}</span>${esc(p.nom)}</span>`).join('')
+    : '<span class="empty-note">Tous les membres sont déjà inscrits — ajoute un prénom ci-dessous.</span>';
+  $('modalInput').value = '';
+  $('modalBg').classList.add('show');
+}
+function closeModal(){ $('modalBg').classList.remove('show'); modalTarget = null; }
+function joinAs(nom){
+  if(!modalTarget) return;
+  const m = state.matches.find(x=>x.id===modalTarget.matchId); if(!m) return;
+  if(m.slots.some(s => s && s.toLowerCase() === nom.toLowerCase())){ toast(nom + ' est déjà inscrit·e'); return; }
+  m.slots[modalTarget.slotIndex] = nom;
+  if(!memberByName(nom)) state.membres.push({nom, tel:'', position:'Polyvalent', photo:''});
+  save(); render(); closeModal();
+  toast(m.slots.every(Boolean) ? 'Match complet, que le meilleur gagne ! 🏆' : nom + ' est inscrit·e ✅');
+}
+function joinFromInput(){
+  const nom = $('modalInput').value.trim();
+  if(!nom){ toast('Écris un prénom'); return; }
+  joinAs(nom);
+}
+
+/* ---- Partage WhatsApp ---- */
+function shareWhatsApp(id){
+  const m = state.matches.find(x=>x.id===id); if(!m) return;
+  const line = (n,i) => n ? n : '(place libre ' + (i+1) + ')';
+  const club = CONFIG.clubs.find(c => c.nom === m.place);
+  const txt =
+`🎾 *Match de padel — ${CONFIG.nomGroupe} !*
+📅 ${fmtLong(m)} à ${fmtTime(m)}
+📍 ${m.place}${club && club.tel ? ' (résa : ' + club.tel + ')' : ''}
+${m.note ? '📝 ' + m.note + '\n' : ''}
+🟢 *Équipe A* : ${line(m.slots[0],0)} & ${line(m.slots[1],1)}
+🔵 *Équipe B* : ${line(m.slots[2],2)} & ${line(m.slots[3],3)}
+
+${m.slots.every(Boolean) ? 'Match complet, soyez à l\'heure 💪' : 'Il reste de la place, qui vient ? 🙋'}`;
+  window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
+}
+
+/* ---- Rendu des matchs ---- */
+function slotHTML(m,i){
+  const n = m.slots[i];
+  if(n) return `<div class="slot filled">
+      <span class="av" style="background:${colorOf(n)}">${avatarHTML(n)}</span>
+      <span class="nm">${esc(n)}</span>
+      <button class="out" title="Se désinscrire" onclick="leaveSlot('${m.id}',${i})">✕</button></div>`;
+  return `<div class="slot empty" onclick="openModal('${m.id}',${i})">+ Je m'inscris</div>`;
+}
+function matchHTML(m, past){
+  const d = matchDate(m);
+  const count = m.slots.filter(Boolean).length, full = count===4;
+  const status = past ? '<span class="status past">Terminé</span>'
+    : full ? '<span class="status done">Complet 4/4</span>'
+    : `<span class="status open">${count}/4 joueurs</span>`;
+  return `<div class="match ${full && !past ? 'full-match':''}">
+    <div class="match-head">
+      <div class="match-when">
+        <div class="date-badge"><div class="d">${d.getDate()}</div><div class="m">${d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')}</div></div>
+        <div><h3>${esc(fmtLong(m))} · ${esc(fmtTime(m))}</h3><div class="meta">📍 ${esc(m.place)}</div></div>
+      </div>${status}
+    </div>
+    <div class="court">
+      <div class="team"><div class="team-name">Équipe A</div>${slotHTML(m,0)}${slotHTML(m,1)}</div>
+      <div class="team"><div class="team-name">Équipe B</div>${slotHTML(m,2)}${slotHTML(m,3)}</div>
+    </div>
+    ${m.note ? `<div class="match-note">📝 ${esc(m.note)}</div>` : ''}
+    <div class="match-actions">
+      <button class="btn btn-wa btn-sm" onclick="shareWhatsApp('${m.id}')">📲 Partager sur WhatsApp</button>
+      ${!past ? `<button class="btn btn-ghost btn-sm" onclick="shuffleTeams('${m.id}')">🎲 Mélanger les équipes</button>` : ''}
+      <span class="spacer"></span>
+      <button class="btn btn-danger btn-sm" onclick="deleteMatch('${m.id}')">Supprimer</button>
+    </div>
+  </div>`;
+}
+
+/* ================= Rendu global ================= */
+function render(){
+  renderMembers();
+
+  const sorted = [...state.matches].sort((a,b)=>matchDate(a)-matchDate(b));
+  const upcoming = sorted.filter(m=>!isPast(m));
+  const past = sorted.filter(isPast).reverse();
+
+  $('matchList').innerHTML = upcoming.length
+    ? upcoming.map(m=>matchHTML(m,false)).join('')
+    : '<div class="empty-state"><div class="big">🎾</div>Aucun match à venir.<br>Créez un créneau ci-dessus pour lancer la squad !</div>';
+  $('historyBlock').style.display = past.length ? 'block' : 'none';
+  $('pastList').innerHTML = past.map(m=>matchHTML(m,true)).join('');
+
+  const nx = upcoming[0];
+  $('homeNext').innerHTML = nx
+    ? `Prochain match : <b style="color:var(--lime)">${esc(fmtLong(nx))} à ${esc(fmtTime(nx))}</b> · ${esc(nx.place)} (${nx.slots.filter(Boolean).length}/4)`
+    : "Aucun match prévu pour l'instant — lancez le premier !";
+}
+
+/* ================= Init ================= */
+(function init(){
+  const parts = CONFIG.nomGroupe.toUpperCase().split(' ');
+  $('navName').innerHTML = esc(parts[0]) + (parts[1] ? '<em>' + esc(parts.slice(1).join(' ')) + '</em>' : '<em>SQUAD</em>');
+  document.title = CONFIG.nomGroupe + ' ' + CONFIG.ville + ' — Organisation des matchs';
+
+  if(CONFIG.lienGroupeWhatsApp){
+    ['joinWa1','joinWa2'].forEach(id => { $(id).href = CONFIG.lienGroupeWhatsApp; $(id).style.display = 'inline-flex'; });
+  }
+
+  $('fDate').value = new Date(Date.now()+86400000).toISOString().slice(0,10);
+
+  $('modalInput').addEventListener('keydown', e => { if(e.key==='Enter') joinFromInput(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+  buildCarousel();
+  renderClubs();
+  render();
+  router();
+})();
+</script>
+</body>
+</html>
