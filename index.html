@@ -9,63 +9,53 @@
 <script>
 /* ============================================================
    ✏️ ZONE DE PERSONNALISATION — MODIFIE ICI SANS RISQUE
-   ------------------------------------------------------------
-   Tout le contenu du site (nom du groupe, lien WhatsApp,
-   clubs, membres, photos) se change dans ce bloc CONFIG.
-   Pour changer une photo : remplace l'adresse entre "" par
-   le lien de ta propre image (clic droit sur une image web
-   → "Copier l'adresse de l'image").
    ============================================================ */
 const CONFIG = {
-
   nomGroupe: "Padel Team",
   ville: "Tunisie",
 
   // 🔗 Lien d'invitation de votre groupe WhatsApp
-  // (WhatsApp → votre groupe → nom du groupe → "Inviter via un lien")
   lienGroupeWhatsApp: "https://chat.whatsapp.com/Lml8Kbh2cuD7xGoHjJqlyF",
 
   // 🎠 Images du carrousel de la page d'accueil (clubs padel en Tunisie)
-  // Chaque diapo : une image (facultative), un titre et un sous-titre.
   carrousel: [
     { img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=1200&q=70",
-      titre: "Padel House  Ariana", soustitre: "3 terrains couverts, éclairage LED" },
+      titre: "Padel House — Ariana", soustitre: "3 terrains couverts, éclairage LED" },
     { img: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1200&q=70",
       titre: "Padel Connection — Borj Louzir", soustitre: "Ambiance conviviale, tournois réguliers" },
     { img: "https://images.unsplash.com/photo-1595435742656-5272d0b3fa82?w=1200&q=70",
       titre: "Padel Marsa — La Marsa", soustitre: "À deux pas de la mer" },
     { img: "https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=1200&q=70",
       titre: "Padel Megrine", soustitre: "Réservation en ligne facile" },
-       { img: "https://skypadel.tn/_next/image?url=%2Fimages%2Fsky-ai%2Fhero-action.png&w=3840&q=75",
-      titre: "Sky Padel", soustitre: "House of teh champions" },
+    { img: "https://skypadel.tn/_next/image?url=%2Fimages%2Fsky-ai%2Fhero-action.png&w=3840&q=75",
+      titre: "Sky Padel", soustitre: "House of the champions" },
     { img: "https://res.cloudinary.com/playtomic/image/upload/c_scale,w_3840,q_80,f_auto/pro/tenants/027347f1-7c73-440d-9d82-5d5a5b0ba767/1782934467457",
-      titre: "Padel Society ", soustitre: "Not Just A Club A Destination" },
-        { img: "https://padeltunisia.com/wp-content/uploads/2017/01/IMG_0370-1024x588.jpg",
-      titre: "Arena Padel Premium ", soustitre: "" },
-      { img: "https://padeltunisia.com/wp-content/uploads/2017/01/IMG_0371.jpg",
-      titre: "olympysky", soustitre: "" },
-      { img: "https://www.marhba.com/images/6.jpg",
-      titre: "Padel Indoor soukra", soustitre: "" },
-      { img: "https://cdn.zyrosite.com/cdn-ecommerce/store_01HHC7TJABTWRCQJC8VKKHGYK0/assets/89c214d4-d0e5-4153-9fae-f67e1fbea678.jpeg",
+      titre: "Padel Society", soustitre: "Not Just A Club, A Destination" },
+    { img: "https://padeltunisia.com/wp-content/uploads/2017/01/IMG_0370-1024x588.jpg",
+      titre: "Arena Padel Premium", soustitre: "" },
+    { img: "https://padeltunisia.com/wp-content/uploads/2017/01/IMG_0371.jpg",
+      titre: "Olympysky", soustitre: "" },
+    { img: "https://www.marhba.com/images/6.jpg",
+      titre: "Padel Indoor Soukra", soustitre: "" },
+    { img: "https://cdn.zyrosite.com/cdn-ecommerce/store_01HHC7TJABTWRCQJC8VKKHGYK0/assets/89c214d4-d0e5-4153-9fae-f67e1fbea678.jpeg",
       titre: "Slim Padel", soustitre: "" },
-       { img: "https://padelmagazine.fr/wp-content/uploads/2018/09/tunisie-padel.jpg",
+    { img: "https://padelmagazine.fr/wp-content/uploads/2018/09/tunisie-padel.jpg",
       titre: "Padel Country Club", soustitre: "" },
-      { img: "https://padeltunisia.com/wp-content/uploads/2024/10/IMG_0970.jpeg",
+    { img: "https://padeltunisia.com/wp-content/uploads/2024/10/IMG_0970.jpeg",
       titre: "Sassi Padel Club", soustitre: "" },
-       { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfZ7ZGEeKZSN3Z3E_I8RIfVSq0_HbP1v8pdDciQdHBiqRvpEWmK2L3xF1c&s=10",
+    { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfZ7ZGEeKZSN3Z3E_I8RIfVSq0_HbP1v8pdDciQdHBiqRvpEWmK2L3xF1c&s=10",
       titre: "Lob Legends", soustitre: "" },
-      { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlSS8j2PGafOZ-56hGA33Q19p-bp24p4LhRGBlOTAMN5dKjMx9eqP2bBw&s=10",
+    { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlSS8j2PGafOZ-56hGA33Q19p-bp24p4LhRGBlOTAMN5dKjMx9eqP2bBw&s=10",
       titre: "Padel Gammarth", soustitre: "" },
-       { img: "https://tn.padelgig.com/uploads/blogs/1747252341_538879aed306d8f5f8b0_large.jpg",
-      titre: "Padelelite", soustitre: "" },
-     { img: "https://padeltunisia.com/wp-content/uploads/2025/09/WhatsApp-Image-2025-09-10-at-3.53.49-PM.webp",
+    { img: "https://tn.padelgig.com/uploads/blogs/1747252341_538879aed306d8f5f8b0_large.jpg",
+      titre: "Padel Elite", soustitre: "" },
+    { img: "https://padeltunisia.com/wp-content/uploads/2025/09/WhatsApp-Image-2025-09-10-at-3.53.49-PM.webp",
       titre: "Padel Club Central", soustitre: "" },
-      { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVBwLYe3vtuJb1IVqjQgboPwHtBj_64JQ5lMvPi918Xawt9xD4V_xXaus&s=10",
-      titre: "Padel Up Soukra", soustitre: "" },
+    { img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVBwLYe3vtuJb1IVqjQgboPwHtBj_64JQ5lMvPi918Xawt9xD4V_xXaus&s=10",
+      titre: "Padel Up Soukra", soustitre: "" }
   ],
 
-  // 🏟️ Clubs de padel (affichés sur la page "Planifier un match")
-  // ⚠️ Vérifie les numéros avant de réserver — ils peuvent changer.
+  // 🏟️ Clubs de padel (page "Planifier un match")
   clubs: [
     { nom: "Padel House Tunisia", adresse: "676 Sidi Amor, Ariana (banlieue nord de Tunis)",
       tel: "+216 22 383 383", site: "https://padelhouse.tn",
@@ -81,41 +71,49 @@ const CONFIG = {
     { nom: "Sassi Stadium (multisport)", adresse: "Grand Tunis",
       tel: "+216 97 330 000", site: "https://sassistadium.com",
       resa: "https://sassistadium.com" },
-    { nom: "PadUp Soukra  — réservation en ligne", adresse: "Avenue 13 Août La Soukra, Ariana",
-      tel: "+216 94 078 514", site: "https://www.padelup.tn/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnM3GVpvvmIDBVU97L5T-VvrVNS_qQpBWhVK-U5Sd_Qy_C4n0_2r0kwvaKxAY_aem_uCuG4vCZFHXdgvQcWk0IqA",
-      resa: "https://www.padelup.tn/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnM3GVpvvmIDBVU97L5T-VvrVNS_qQpBWhVK-U5Sd_Qy_C4n0_2r0kwvaKxAY_aem_uCuG4vCZFHXdgvQcWk0IqA" },
-     { nom: " Padel Society ", adresse: "7 Rue de l'artisanat, Tunis 2035",
+    { nom: "PadUp Soukra — réservation en ligne", adresse: "Avenue 13 Août La Soukra, Ariana",
+      tel: "+216 94 078 514", site: "https://www.padelup.tn",
+      resa: "https://www.padelup.tn" },
+    { nom: "Padel Society", adresse: "7 Rue de l'artisanat, Tunis 2035",
       tel: "+216 98 707 707", site: "https://www.clubpadelsociety.com",
-      resa: "https://www.clubpadelsociety.com" },  
-      { nom: " SkyPadel ", adresse: "1 Rue des éoliennes, Charguia 1 Tunis, Tunisie",
+      resa: "https://www.clubpadelsociety.com" },
+    { nom: "SkyPadel", adresse: "1 Rue des éoliennes, Charguia 1, Tunis",
       tel: "+216 48 35 25 35", site: "https://skypadel.tn/tableau-de-bord",
-      resa: "https://skypadel.tn/tableau-de-bord" }, 
-      { nom: " Olympysky ", adresse: "Boulevard Béji Caïd Essebsi, Les Berges Du Lac II",
+      resa: "https://skypadel.tn/tableau-de-bord" },
+    { nom: "Olympysky", adresse: "Boulevard Béji Caïd Essebsi, Les Berges Du Lac II",
       tel: "+216 24 823 330", site: "https://olympysky.com/",
       resa: "" },
-     { nom: " Gammarth Club  ", adresse: "Zone touristique Cap Gammarth, Gammarth, Tunisia",
+    { nom: "Gammarth Club", adresse: "Zone touristique Cap Gammarth, Gammarth",
       tel: "+216 58 100 000", site: "",
-      resa: "" }, 
-     { nom: " Slim Padel  ", adresse: "Lac 1 Tunis ",
+      resa: "" },
+    { nom: "Slim Padel", adresse: "Lac 1, Tunis",
       tel: "+216 23 149 000", site: "",
-      resa: "" }, 
-       { nom: " Padel Country Club   ", adresse: "Lac 1 Tunis ",
+      resa: "" },
+    { nom: "Padel Country Club", adresse: "Lac 1, Tunis",
       tel: "+216 20 808 366", site: "",
-      resa: "" }, 
-       { nom: " Padel Indoor Soukra   ", adresse: "Soukra , Ariana  ",
-      tel: "+216 24 722 000.", site: "",
-      resa: "" }, 
-     { nom: " Arena Padel Premium   ", adresse: "Arena Gym Premium, Rue du parc 2036 La Soukra, Tunisie, La Soukra, Tunisia ",
-      tel: "+216 28 588 084.", site: "",
-      resa: "" }, 
+      resa: "" },
+    { nom: "Padel Indoor Soukra", adresse: "Soukra, Ariana",
+      tel: "+216 24 722 000", site: "",
+      resa: "" },
+    { nom: "Arena Padel Premium", adresse: "Arena Gym Premium, Rue du parc 2036, La Soukra",
+      tel: "+216 28 588 084", site: "",
+      resa: "" }
   ],
 
   // 👥 Membres de départ du groupe (modifiables aussi depuis le site)
-  // position : "Droite", "Gauche" ou "Polyvalent"
-  // photo : laisse "" pour un avatar automatique, ou mets le lien d'une photo
   membres: [
     { nom: "Ali", tel: "+216 ", position: "Polyvalent", photo: "" }
   ]
+};
+
+/* 🔥 Connexion à la base de données partagée (Firebase — ne pas modifier) */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDjXuq9DxeRiuu_gmEeJ_yvK1JgLVLRuYg",
+  authDomain: "padel-squad-1e72b.firebaseapp.com",
+  projectId: "padel-squad-1e72b",
+  storageBucket: "padel-squad-1e72b.firebasestorage.app",
+  messagingSenderId: "462357933862",
+  appId: "1:462357933862:web:4da9ea7a6f334b3fec1be7"
 };
 </script>
 
@@ -142,7 +140,6 @@ const CONFIG = {
   .wrap{max-width:960px;margin:0 auto;padding:0 16px 80px}
   a{color:var(--blue-light)}
 
-  /* ---------- Barre de navigation ---------- */
   nav{
     position:sticky;top:0;z-index:40;
     background:rgba(13,27,46,.92);backdrop-filter:blur(8px);
@@ -166,8 +163,8 @@ const CONFIG = {
   }
   .nav-link:hover{color:var(--text)}
   .nav-link.active{background:var(--lime);color:var(--navy)}
+  #syncBadge{font-size:.72rem;color:var(--muted);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:4px 10px;font-weight:700}
 
-  /* ---------- Pages ---------- */
   .page{display:none;animation:fadeIn .25s ease}
   .page.show{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
@@ -177,7 +174,6 @@ const CONFIG = {
   .sec-title .bar{width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--lime),var(--blue))}
   .sec-sub{color:var(--muted);font-size:.92rem;margin:-8px 0 14px 15px}
 
-  /* ---------- Hero accueil ---------- */
   .hero{
     margin-top:22px;background:linear-gradient(135deg, var(--card) 0%, var(--navy-2) 100%);
     border:1px solid rgba(200,245,66,.18);border-radius:var(--radius);
@@ -205,7 +201,6 @@ const CONFIG = {
   .btn-danger:hover{background:rgba(255,93,108,.1)}
   .btn-big{font-size:1.1rem;padding:15px 28px}
 
-  /* ---------- Carrousel ---------- */
   .carousel{
     position:relative;border-radius:var(--radius);overflow:hidden;
     border:1px solid rgba(255,255,255,.1);height:300px;background:var(--card);
@@ -222,9 +217,7 @@ const CONFIG = {
   .slide .cap{position:relative;padding:20px 22px;z-index:2}
   .slide .cap h3{font-size:1.25rem;font-weight:800}
   .slide .cap p{color:#cdd9ec;font-size:.92rem;margin-top:3px}
-  .slide .court-deco{
-    position:absolute;inset:0;display:grid;place-items:center;font-size:5rem;opacity:.25;
-  }
+  .slide .court-deco{position:absolute;inset:0;display:grid;place-items:center;font-size:5rem;opacity:.25}
   .car-btn{
     position:absolute;top:50%;transform:translateY(-50%);z-index:3;
     background:rgba(13,27,46,.7);border:1px solid rgba(255,255,255,.2);color:#fff;
@@ -232,11 +225,10 @@ const CONFIG = {
   }
   .car-btn:hover{background:var(--lime);color:var(--navy)}
   .car-prev{left:12px}.car-next{right:12px}
-  .car-dots{position:absolute;bottom:12px;right:16px;z-index:3;display:flex;gap:6px}
+  .car-dots{position:absolute;bottom:12px;right:16px;z-index:3;display:flex;gap:6px;flex-wrap:wrap;max-width:60%;justify-content:flex-end}
   .car-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
   .car-dots span.on{background:var(--lime)}
 
-  /* ---------- Cartes génériques ---------- */
   .card{
     background:var(--card);border:1px solid rgba(255,255,255,.07);
     border-radius:var(--radius);padding:18px;
@@ -244,8 +236,6 @@ const CONFIG = {
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:640px){.grid2{grid-template-columns:1fr}}
 
-  /* ---------- Accueil : 3 partitions ---------- */
-  .home-actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
   .mini-members{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   .mini-members .face{
     width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--lime);
@@ -253,7 +243,6 @@ const CONFIG = {
   }
   .mini-members .face img{width:100%;height:100%;object-fit:cover}
 
-  /* ---------- Formulaires ---------- */
   input,select{
     background:var(--navy-2);border:1px solid rgba(255,255,255,.12);
     color:var(--text);border-radius:12px;padding:11px 14px;font-size:1rem;outline:none;width:100%;
@@ -266,7 +255,6 @@ const CONFIG = {
   @media(max-width:560px){.form-grid{grid-template-columns:1fr}}
   .form-actions{margin-top:14px;display:flex;justify-content:flex-end}
 
-  /* ---------- Matchs ---------- */
   .match{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px;margin-bottom:16px;animation:fadeIn .3s}
   .match.full-match{border-color:rgba(200,245,66,.4)}
   .match-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
@@ -313,7 +301,6 @@ const CONFIG = {
   details.history[open] summary::before{transform:rotate(90deg)}
   details.history .match{opacity:.75}
 
-  /* ---------- Clubs ---------- */
   .club{display:flex;flex-direction:column;gap:8px}
   .club h3{font-size:1.02rem;display:flex;align-items:center;gap:8px}
   .club .adr{color:var(--muted);font-size:.9rem}
@@ -329,7 +316,6 @@ const CONFIG = {
     padding:7px 12px;border-radius:999px;font-weight:700;font-size:.87rem;
   }
 
-  /* ---------- Membres ---------- */
   .members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
   .member{
     background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);
@@ -357,7 +343,6 @@ const CONFIG = {
   }
   .member .del:hover{color:var(--danger)}
 
-  /* ---------- Divers ---------- */
   .info{
     margin-top:32px;background:rgba(47,111,237,.1);border:1px solid rgba(91,155,255,.3);
     border-radius:var(--radius);padding:16px 18px;font-size:.9rem;color:var(--muted);line-height:1.55;
@@ -366,7 +351,6 @@ const CONFIG = {
   footer{margin-top:44px;text-align:center;color:var(--muted);font-size:.85rem}
   footer .heart{color:var(--lime)}
 
-  /* ---------- Modal ---------- */
   .modal-bg{position:fixed;inset:0;background:rgba(5,10,20,.75);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
   .modal-bg.show{display:flex}
   .modal{background:var(--card);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:22px;width:100%;max-width:420px;animation:fadeIn .2s}
@@ -392,10 +376,11 @@ const CONFIG = {
 
 <nav>
   <div class="nav-in">
-    <div class="logo"><div class="ball">🎾</div><span id="navName">PADEL<em>SQUAD</em></span></div>
+    <div class="logo"><div class="ball">🎾</div><span id="navName">PADEL<em>TEAM</em></span></div>
     <a class="nav-link" href="#accueil" data-page="accueil">Accueil</a>
     <a class="nav-link" href="#planifier" data-page="planifier">Planifier un match</a>
     <a class="nav-link" href="#membres" data-page="membres">Membres</a>
+    <span id="syncBadge" title="Synchronisation">⏳</span>
   </div>
 </nav>
 
@@ -404,7 +389,6 @@ const CONFIG = {
   <!-- ==================== PAGE 1 : ACCUEIL ==================== -->
   <div class="page" id="page-accueil">
 
-    <!-- Partition 1 : Réservez votre terrain + carrousel -->
     <div class="hero">
       <h1>Le padel, entre amis, <b>Rien de plus simple.</b> 🎾</h1>
       <p>Créez une partie, choisissez un club, invitez les joueurs et profitez simplement de vos matchs entre amis.</p>
@@ -415,7 +399,6 @@ const CONFIG = {
       <div class="carousel" id="carousel"></div>
     </section>
 
-    <!-- Partition 2 : bouton planifier -->
     <section style="text-align:center">
       <div class="card" style="padding:30px">
         <h2 style="margin-bottom:8px">Prêt à jouer ?</h2>
@@ -424,7 +407,6 @@ const CONFIG = {
       </div>
     </section>
 
-    <!-- Partition 3 : membres du groupe WhatsApp -->
     <section>
       <div class="sec-title"><span class="bar"></span>👥 Les membres du groupe WhatsApp</div>
       <div class="card">
@@ -505,10 +487,11 @@ const CONFIG = {
   </div>
 
   <div class="info">
-    💡 <b>Bon à savoir : Utilisez le bouton <b>« Partager sur WhatsApp »</b> d'un match pour prévenir tout le groupe.
+    💡 <b>Bon à savoir :</b> les inscriptions et les matchs sont <b>partagés entre tous les membres</b> en temps réel.
+    Utilisez le bouton <b>« Partager sur WhatsApp »</b> d'un match pour prévenir tout le groupe.
   </div>
 
-  <footer>Fait avec <span class="heart">♥</span> pour la Team · Tunisie 🇹🇳 · </footer>
+  <footer>Fait avec <span class="heart">♥</span> pour la Team · Tunisie 🇹🇳</footer>
 </div>
 
 <!-- Modal inscription à un match -->
@@ -527,23 +510,45 @@ const CONFIG = {
 
 <div id="toast"></div>
 
-<script>
+<script type="module">
 'use strict';
 
+/* ================= Base de données partagée (Firebase) ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let remoteDoc = null;
+try{
+  const app = initializeApp(FIREBASE_CONFIG);
+  remoteDoc = doc(getFirestore(app), 'padel', 'data');
+}catch(e){ console.warn('Firebase indisponible :', e); }
+
+function setSync(ok){
+  const b = document.getElementById('syncBadge');
+  if(!b) return;
+  b.textContent = ok ? '🟢 En ligne' : '⚪ Hors ligne';
+  b.title = ok ? 'Données partagées avec tout le groupe' : 'Connexion à la base impossible — données locales';
+}
+
 /* ================= État & stockage ================= */
-const KEY = 'padelsquad-v2';
-let state = load();
+const KEY = 'padelsquad-v3';
+let state = loadLocal();
 let modalTarget = null;
 let carIndex = 0, carTimer = null;
 
-function load(){
+function loadLocal(){
   try{
     const raw = localStorage.getItem(KEY);
     if(raw){ const s = JSON.parse(raw); if(s && Array.isArray(s.membres) && Array.isArray(s.matches)) return s; }
   }catch(e){}
   return { membres: JSON.parse(JSON.stringify(CONFIG.membres)), matches: [] };
 }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  if(remoteDoc){
+    setDoc(remoteDoc, state).then(()=>setSync(true)).catch(()=>setSync(false));
+  }
+}
 
 /* ================= Utilitaires ================= */
 const $ = id => document.getElementById(id);
@@ -617,7 +622,7 @@ function addMember(){
   state.membres.push({ nom, tel, position: $('mPos').value, photo: $('mPhoto').value.trim() });
   $('mNom').value=''; $('mTel').value=''; $('mPhoto').value='';
   save(); render();
-  toast(nom + ' a rejoint la squad ! 🎾');
+  toast(nom + ' a rejoint la team ! 🎾');
 }
 function removeMember(nom){
   if(!confirm('Retirer ' + nom + ' du groupe ?')) return;
@@ -733,7 +738,8 @@ ${m.note ? '📝 ' + m.note + '\n' : ''}
 🟢 *Équipe A* : ${line(m.slots[0],0)} & ${line(m.slots[1],1)}
 🔵 *Équipe B* : ${line(m.slots[2],2)} & ${line(m.slots[3],3)}
 
-${m.slots.every(Boolean) ? 'Match complet, soyez à l\'heure 💪' : 'Il reste de la place, qui vient ? 🙋'}`;
+${m.slots.every(Boolean) ? 'Match complet, soyez à l\'heure 💪' : 'Il reste de la place, qui vient ? 🙋'}
+👉 ${location.origin}${location.pathname}#planifier`;
   window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 }
 
@@ -783,7 +789,7 @@ function render(){
 
   $('matchList').innerHTML = upcoming.length
     ? upcoming.map(m=>matchHTML(m,false)).join('')
-    : '<div class="empty-state"><div class="big">🎾</div>Aucun match à venir.<br>Créez un créneau ci-dessus pour lancer la squad !</div>';
+    : '<div class="empty-state"><div class="big">🎾</div>Aucun match à venir.<br>Créez un créneau ci-dessus pour lancer la team !</div>';
   $('historyBlock').style.display = past.length ? 'block' : 'none';
   $('pastList').innerHTML = past.map(m=>matchHTML(m,true)).join('');
 
@@ -793,10 +799,35 @@ function render(){
     : "Aucun match prévu pour l'instant — lancez le premier !";
 }
 
+/* ================= Synchronisation temps réel ================= */
+if(remoteDoc){
+  onSnapshot(remoteDoc, snap => {
+    if(snap.exists()){
+      const d = snap.data();
+      if(d && Array.isArray(d.membres) && Array.isArray(d.matches)){
+        state = d;
+        try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+        render();
+      }
+      setSync(true);
+    } else {
+      // Première utilisation : on envoie les données locales
+      setDoc(remoteDoc, state).then(()=>setSync(true)).catch(()=>setSync(false));
+    }
+  }, () => setSync(false));
+} else {
+  setSync(false);
+}
+
 /* ================= Init ================= */
+Object.assign(window, {
+  addMember, removeMember, createMatch, deleteMatch, leaveSlot, shuffleTeams,
+  openModal, closeModal, joinAs, joinFromInput, shareWhatsApp, carGo, carSet
+});
+
 (function init(){
   const parts = CONFIG.nomGroupe.toUpperCase().split(' ');
-  $('navName').innerHTML = esc(parts[0]) + (parts[1] ? '<em>' + esc(parts.slice(1).join(' ')) + '</em>' : '<em>SQUAD</em>');
+  $('navName').innerHTML = esc(parts[0]) + (parts[1] ? '<em>' + esc(parts.slice(1).join(' ')) + '</em>' : '<em>TEAM</em>');
   document.title = CONFIG.nomGroupe + ' ' + CONFIG.ville + ' — Organisation des matchs';
 
   if(CONFIG.lienGroupeWhatsApp){
